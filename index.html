@@ -134,5 +134,67 @@ alert("Add your referral URL first.");
 }
 }
 </script>
-</body>
+</body><section class="sell-rates">
+  <h2>USDT Sell Rates</h2>
+
+  <div class="rate-card red-rate">
+    <h3>SELL RATE 1</h3>
+    <p class="rate">₹117 <small>/ USDT</small></p>
+    <p>Payment Guarantee: 20 Days</p>
+    <button onclick="selectRate(117,20)">Sell at ₹117</button>
+  </div>
+
+  <div class="rate-card gold-rate">
+    <h3>SELL RATE 2</h3>
+    <p class="rate">₹130 <small>/ USDT</small></p>
+    <p>Payment Guarantee: 10 Days</p>
+    <button onclick="selectRate(130,10)">Sell at ₹130</button>
+  </div>
+</section>
+
+<style>
+.sell-rates {
+  max-width: 600px;
+  margin: 25px auto;
+  padding: 16px;
+  font-family: Arial, sans-serif;
+}
+.sell-rates h2 {
+  text-align: center;
+  color: #c62828;
+}
+.rate-card {
+  padding: 20px;
+  margin: 18px 0;
+  border-radius: 18px;
+  text-align: center;
+  background: white;
+  box-shadow: 0 3px 12px #0001;
+}
+.red-rate { border: 2px solid #d62828; }
+.gold-rate { border: 2px solid #e0ad00; }
+.rate { font-size: 34px; font-weight: bold; }
+.rate small { font-size: 15px; }
+.red-rate h3 { color: #d62828; }
+.gold-rate h3 { color: #a77b00; }
+.rate-card button {
+  width: 100%;
+  padding: 14px;
+  border: 0;
+  border-radius: 9px;
+  color: white;
+  background: #d62828;
+  font-size: 17px;
+  font-weight: bold;
+}
+.gold-rate button { background: #bd9000; }
+</style>
+
+<script>
+function selectRate(rate, days) {
+  alert("Selected rate: ₹" + rate +
+        " per USDT. Payment term: " + days +
+        " days. Demo only — no real sale or payment is processed.");
+}
+</script>
 </html>
