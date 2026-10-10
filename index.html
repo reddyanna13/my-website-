@@ -179,5 +179,38 @@ function loginUser(event) {
   return false;
 }
 </script>
+<p>New user? <a href="#registration">Registration</a></p>
+  <p id="loginMessage"></p>
+</div><style>
+.login-box {
+  max-width: 350px;
+  margin: 20px auto;
+  padding: 20px;
+  text-align: center;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+}
+.login-box input {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+}
+.login-box button {
+  width: 100%;
+  padding: 12px;
+  background: #1677e8;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+</style><script>
+function loginUser(event) {
+  event.preventDefault();
+  document.getElementById("loginMessage").textContent =
+    "Login system abhi connect nahi hai.";
+  return false;
+}
+</script>
 </body>
 </html>
