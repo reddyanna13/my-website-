@@ -207,8 +207,25 @@ function loginUser(event) {
 </style><script>
 function loginUser(event) {
   event.preventDefault();
-  document.getElementById("loginMessage").textContent =
-    "Login system abhi connect nahi hai.";
+
+  const username = document.getElementById("loginUsername").value.trim();
+  const password = document.getElementById("loginPassword").value;
+  const message = document.getElementById("loginMessage");
+
+  const savedUsername = localStorage.getItem("registeredUsername");
+  const savedPassword = localStorage.getItem("registeredPassword");
+
+  if (
+    savedUsername !== null &&
+    savedPassword !== null &&
+    username === savedUsername &&
+    password === savedPassword
+  ) {
+    message.textContent = "Login successful!";
+  } else {
+    message.textContent = "Username ya Password galat hai.";
+  }
+
   return false;
 }
 </script>
