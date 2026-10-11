@@ -59,56 +59,72 @@ html><html lang="en">
     <p class="switch" id="switchBtn">New user? Register here</p>
     <p id="message"></p>
   </div>
-  <script type="module">
-    import { createClient } from
-      'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
-
-    const SUPABASE_URL = https://mmjjkvrzjsxzxiypbpxj.supabase.co
-    const SUPABASE_ANON_KEY = sb_publishable_rtBkxL__F-u3TLAf19v0GA_tP9aa1CC
-
-    const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-    let isRegister = false;
-    const heading = document.getElementById('heading');
-    const submitBtn = document.getElementById('submitBtn');
-    const switchBtn = document.getElementById('switchBtn');
-    const message = document.getElementById('message');
-
-    switchBtn.onclick = () => {
-      isRegister = !isRegister;
-      heading.textContent = isRegister ? 'Create Account' : 'Login';
-      submitBtn.textContent = isRegister ? 'Register' : 'Login';
-      switchBtn.textContent = isRegister
-        ? 'Already registered? Login here'
-        : 'New user? Register here';
-      message.textContent = '';
-    };
-
-    document.getElementById('authForm').onsubmit = async (event) => {
-      event.preventDefault();
-      message.textContent = 'Please wait...';
-
-      const email = document.getElementById('email').value.trim();
-      const password = document.getElementById('password').value;
-
-      try {
-        const result = isRegister
-          ? await supabase.auth.signUp({ email, password })
-          : await supabase.auth.signInWithPassword({ email, password });
-
-        if (result.error) throw result.error;
-
-        message.textContent = isRegister
-          ? 'Registration submitted. Check your email if verification is required.'
-          : 'Login successful!';
-
-        if (!isRegister && result.data.session) {
-          window.location.href = 'dashboard.html';
-        }
-      } catch (error) {
-        message.textContent = error.message;
-      }
-    };
-  </script>
-</body>
+<script type="module">
+import { createClient } from
+'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+// यहाँ अपनी मौजूदा Supabase Project URL और Publishable Key रखें
+const SUPABASE_URL = 'YOUR_EXISTING_SUPABASE_PROJECT_URL';
+const SUPABASE_KEY = 'YOUR_EXISTING_SUPABASE_PUBLISHABLE_KEY';
+let supabase = null;
+let isRegister = false;
+const heading = document.getElementById('heading');
+const submitBtn = document.getElementById('submitBtn');
+const switchBtn = document.getElementById('switchBtn');
+const message = document.getElementById('message');
+const authForm = document.getElementById('authForm');
+switchBtn.addEventListener('click', function () {
+  isRegister = !isRegister;
+  heading.textContent = isRegister ? 'Create Account' : 'Login';
+  submitBtn.textContent = isRegister ? 'Register' : 'Login';
+  switchBtn.textContent = isRegister
+    ? 'Already registered? Login here'
+    : 'New user? Register here';
+  message.textContent = '';
+});
+try {
+  if (
+    SUPABASE_URL.includes('YOUR_EXISTING') ||
+    SUPABASE_KEY.includes('YOUR_EXISTING')
+  ) {
+    throw new Error('अपनी Supabase URL और Publishable Key कोड में डालें।');
+  }
+  supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+} catch (error) {
+  message.textContent = error.message;
+}
+authForm.addEventListener('submit', async function (event) {
+  event.preventDefault();
+  const email = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value;
+  if (!supabase) {
+    message.textContent = 'Supabase URL और Key की सेटिंग जाँचें।';
+    return;
+  }
+  submitBtn.disabled = true;
+  message.textContent = 'Please wait...';
+  try {
+    if (isRegister) {
+      const { data, error } = await supabase.auth.signUp({
+        email: email,
+        password: password
+      });
+      if (error) throw error;
+      message.textContent = data.session
+        ? 'Registration successful! अब Login कर सकते हैं।'
+        : 'Registration request सफल! ईमेल चेक करें और verification पूरा करें।';
+    } else {
+      const { error } = await supabase.auth.signInWithPassword({
+        email: email,
+        password: password
+      });
+      if (error) throw error;
+      message.textContent = 'Login successful!';
+    }
+  } catch (error) {
+    message.textContent = error.message;
+  } finally {
+    submitBtn.disabled = false;
+  }
+});
+</script>
 </html>
