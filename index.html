@@ -57,6 +57,38 @@ html><html lang="en">
       <button id="submitBtn" type="submit">Login</button>
     </form>
  <button
+
+  type="button"
+
+  id="switchBtn"
+
+  onclick="
+
+    const h = document.getElementById('heading');
+
+    const b = document.getElementById('submitBtn');
+
+    if (h.textContent === 'Login') {
+
+      h.textContent = 'Create Account';
+
+      b.textContent = 'Register';
+
+      this.textContent = 'Already registered? Login here';
+
+    } else {
+
+      h.textContent = 'Login';
+
+      b.textContent = 'Login';
+
+      this.textContent = 'New user? Register here';
+
+    }
+
+  "
+
+>New user? Register here</button>
   type="button"
   id="switchBtn"
   onclick="
