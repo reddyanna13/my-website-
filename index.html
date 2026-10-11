@@ -56,7 +56,23 @@ html><html lang="en">
       <input id="password" type="password" placeholder="Password (minimum 6 characters)" minlength="6" required>
       <button id="submitBtn" type="submit">Login</button>
     </form>
-    <p class="switch" id="switchBtn">New user? Register here</p>
+ <button
+  type="button"
+  id="switchBtn"
+  onclick="
+    const h = document.getElementById('heading');
+    const b = document.getElementById('submitBtn');
+    if (h.textContent === 'Login') {
+      h.textContent = 'Create Account';
+      b.textContent = 'Register';
+      this.textContent = 'Already registered? Login here';
+    } else {
+      h.textContent = 'Login';
+      b.textContent = 'Login';
+      this.textContent = 'New user? Register here';
+    }
+  "
+>New user? Register here</button>
     <p id="message"></p>
   </div>
 <script type="module">
